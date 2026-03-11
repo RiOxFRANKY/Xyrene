@@ -1,0 +1,16 @@
+{
+  "name": "gui-api",
+  "version": "1.0.0",
+  "description": "Proxy API bridging the XYRENE React GUI with the Python ML Engine",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

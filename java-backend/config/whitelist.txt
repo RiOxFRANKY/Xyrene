@@ -1,0 +1,3 @@
+# IDS Whitelist — one IPv4 address per line
+# Lines starting with # are comments
+127.0.0.1

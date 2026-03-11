@@ -1,0 +1,53 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+
+# Python
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+python-backend/dataset/
+python-backend/models/lightgbm_ids_model.txt
+
+# Java
+target/
+*.class
+*.jar
+*.war
+*.ear
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+java_out.log
+
+# Logs and Output
+logs/
+*.log
+build.txt
+build.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# XYRENE Specific
+bugs.txt
+todo.txt
+*.docx
+
+
+.vscode

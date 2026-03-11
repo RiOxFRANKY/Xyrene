@@ -1,0 +1,96 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------------< com.mitm:mitm-ids >--------------------------
+[INFO] Building MITM-IDS Professional 2.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ mitm-ids ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.12.1:compile (default-compile) @ mitm-ids ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 32 source files with javac [debug target 17] to target\classes
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] location of system modules is not set in conjunction with -source 17
+  not setting the location of system modules may lead to class files that cannot run on JDK 17
+    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO] 1 warning
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/api/VerdictHandler.java:[25,19] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.api.VerdictHandler
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/api/VerdictHandler.java:[33,49] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.api.VerdictHandler
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/UnblockCommand.java:[11,19] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.cli.UnblockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/UnblockCommand.java:[13,49] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.cli.UnblockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[5,29] package com.mitm.ids.firewall does not exist
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[12,19] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.cli.BlockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[14,47] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.cli.BlockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/util/FirewallService.java:[67,74] cannot find symbol
+  symbol:   method getMsg(com.sun.jna.platform.win32.WinNT.HRESULT)
+  location: class com.sun.jna.platform.win32.COM.COMUtils
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/Main.java:[61,13] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.Main
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/Main.java:[61,51] cannot find symbol
+  symbol:   class FirewallService
+  location: class com.mitm.ids.Main
+[INFO] 10 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.330 s
+[INFO] Finished at: 2026-03-11T22:58:30+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.12.1:compile (default-compile) on project mitm-ids: Compilation failure: Compilation failure: 
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/api/VerdictHandler.java:[25,19] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.api.VerdictHandler
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/api/VerdictHandler.java:[33,49] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.api.VerdictHandler
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/UnblockCommand.java:[11,19] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.cli.UnblockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/UnblockCommand.java:[13,49] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.cli.UnblockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[5,29] package com.mitm.ids.firewall does not exist
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[12,19] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.cli.BlockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/cli/BlockCommand.java:[14,47] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.cli.BlockCommand
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/util/FirewallService.java:[67,74] cannot find symbol
+[ERROR]   symbol:   method getMsg(com.sun.jna.platform.win32.WinNT.HRESULT)
+[ERROR]   location: class com.sun.jna.platform.win32.COM.COMUtils
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/Main.java:[61,13] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.Main
+[ERROR] /C:/Users/abhir/Desktop/PROGRAMMING/Java/MITM-IDS/java-backend/src/main/java/com/mitm/ids/Main.java:[61,51] cannot find symbol
+[ERROR]   symbol:   class FirewallService
+[ERROR]   location: class com.mitm.ids.Main
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,13 @@
+{
+    "ml.api.url": "http://127.0.0.1:8000",
+    "ml.api.timeout.connect": 2000,
+    "ml.api.timeout.read": 5000,
+    "ml.api.retries": 3,
+    "ml.api.retry.delay": 500,
+    "pcap.device": "",
+    "pcap.snaplen": 65536,
+    "pcap.timeout": 10,
+    "log.dir": "logs",
+    "log.file": "ids.log",
+    "whitelist.path": "config/whitelist.txt"
+}
