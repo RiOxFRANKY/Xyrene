@@ -136,7 +136,25 @@ app.get('/api/blocks', async (req, res) => {
 // 4. ACTION ENDPOINTS (Proxy to Python)
 app.post('/api/block', async (req, res) => {
     try {
-        const { data } = await axios.post(`${PYTHON_API}/blocklist/add`, req.body);
+        const { ip, duration_sec } = req.body;
+        
+        // 1. Input Sanitization
+        const cleanIp = typeof ip === 'string' ? ip.trim() : '';
+        const cleanDuration = duration_sec ? parseInt(duration_sec, 10) : undefined;
+        
+        if (!cleanIp || !/^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\.(?!$)|$)){4}$/.test(cleanIp)) {
+            return res.status(400).json({ error: 'Invalid IP format' });
+        }
+        
+        // 2. IDOR Prevention: Prevent modifying system/local components
+        if (cleanIp === '127.0.0.1' || cleanIp === '0.0.0.0') {
+            return res.status(403).json({ error: 'IDOR Protection: Forbidden to modify system IPs' });
+        }
+
+        // 3. Mass Assignment Prevention: Only proxy explicit fields
+        const payload = { ip: cleanIp, duration_sec: cleanDuration };
+
+        const { data } = await axios.post(`${PYTHON_API}/blocklist/add`, payload);
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to block IP' });
@@ -145,7 +163,24 @@ app.post('/api/block', async (req, res) => {
 
 app.post('/api/unblock', async (req, res) => {
     try {
-        const { data } = await axios.post(`${PYTHON_API}/blocklist/remove`, req.body);
+        const { ip } = req.body;
+        
+        // 1. Input Sanitization
+        const cleanIp = typeof ip === 'string' ? ip.trim() : '';
+        
+        if (!cleanIp || !/^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\.(?!$)|$)){4}$/.test(cleanIp)) {
+            return res.status(400).json({ error: 'Invalid IP format' });
+        }
+        
+        // 2. IDOR Prevention
+        if (cleanIp === '127.0.0.1' || cleanIp === '0.0.0.0') {
+            return res.status(403).json({ error: 'IDOR Protection: Forbidden to modify system IPs' });
+        }
+
+        // 3. Mass Assignment Prevention
+        const payload = { ip: cleanIp };
+
+        const { data } = await axios.post(`${PYTHON_API}/blocklist/remove`, payload);
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to unblock IP' });

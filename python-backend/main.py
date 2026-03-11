@@ -17,6 +17,7 @@ Routes:
 import os
 import time
 import json
+import re
 from datetime import datetime
 from typing import Optional
 
@@ -184,27 +185,47 @@ async def get_blocklist():
 
 
 # ── POST /api/blocklist/add ──────────────────────────────────────────
+def sanitize_and_validate_ip(ip: str) -> str:
+    clean_ip = ip.strip()
+    if not re.match(r"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.){3}(25[0-5]|(2[0-4]|1\d|[1-9]|)\d)$", clean_ip):
+        raise ValueError("Invalid IP format")
+    if clean_ip in ("127.0.0.1", "0.0.0.0"):
+        raise ValueError("IDOR Protection: Cannot modify system IPs")
+    return clean_ip
+
 class BlockRequest(BaseModel):
     ip: str
     duration_sec: Optional[int] = None
+    model_config = {"extra": "forbid"}
 
 @app.post("/api/blocklist/add")
 async def add_to_blocklist(req: BlockRequest):
     """Manually block an IP address."""
-    policy.add_to_blocklist(req.ip, req.duration_sec)
-    ids_logger.log_block(req.ip, "MANUAL", "Administrator action")
-    return {"message": f"IP {req.ip} blocked", "blocked": True}
+    try:
+        clean_ip = sanitize_and_validate_ip(req.ip)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+        
+    policy.add_to_blocklist(clean_ip, req.duration_sec)
+    ids_logger.log_block(clean_ip, "MANUAL", "Administrator action")
+    return {"message": f"IP {clean_ip} blocked", "blocked": True}
 
 
 # ── POST /api/blocklist/remove ───────────────────────────────────────
 class UnblockRequest(BaseModel):
     ip: str
+    model_config = {"extra": "forbid"}
 
 @app.post("/api/blocklist/remove")
 async def remove_from_blocklist(req: UnblockRequest):
     """Manually unblock an IP address."""
-    policy.remove_from_blocklist(req.ip)
-    return {"message": f"IP {req.ip} removed from blocklist", "blocked": False}
+    try:
+        clean_ip = sanitize_and_validate_ip(req.ip)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+        
+    policy.remove_from_blocklist(clean_ip)
+    return {"message": f"IP {clean_ip} removed from blocklist", "blocked": False}
 
 
 # ── GET /api/stats ───────────────────────────────────────────────────

@@ -100,6 +100,14 @@ public class ApiServer {
             }
         }
 
+        private boolean isValidIp(String ip) {
+            return ip != null && ip.matches("^((25[0-5]|(2[0-4]|1[0-9]|[1-9]|)[0-9])(\\.(?!$)|$)){4}$");
+        }
+
+        private boolean isSystemIp(String ip) {
+            return "127.0.0.1".equals(ip) || "0.0.0.0".equals(ip);
+        }
+
         private void handleStartCapture(HttpExchange exchange) throws IOException {
             if (capture.isRunning()) {
                 sendJsonResponse(exchange, 400, "{\"error\": \"Capture is already running\"}");
@@ -125,11 +133,21 @@ public class ApiServer {
         private void handleBlock(HttpExchange exchange) throws IOException {
             InputStream is = exchange.getRequestBody();
             JsonNode body = mapper.readTree(is);
-            String ip = body.has("ip") ? body.get("ip").asText() : null;
+            
+            // 1. Mass assignment prevention: only extract explicitly allowed fields
+            String rawIp = body.has("ip") ? body.get("ip").asText() : null;
             Integer duration = body.has("duration_sec") && !body.get("duration_sec").isNull() ? body.get("duration_sec").asInt() : null;
 
-            if (ip == null || ip.isEmpty()) {
-                sendJsonResponse(exchange, 400, "{\"error\": \"IP is required\"}");
+            // 2. Input Sanitization
+            String ip = rawIp != null ? rawIp.trim() : null;
+            if (!isValidIp(ip)) {
+                sendJsonResponse(exchange, 400, "{\"error\": \"Valid IP format is required\"}");
+                return;
+            }
+
+            // 3. IDOR Protection: Prevent modifying system IPs
+            if (isSystemIp(ip)) {
+                sendJsonResponse(exchange, 403, "{\"error\": \"IDOR Protection: System IPs forbidden\"}");
                 return;
             }
 
@@ -152,10 +170,20 @@ public class ApiServer {
         private void handleUnblock(HttpExchange exchange) throws IOException {
             InputStream is = exchange.getRequestBody();
             JsonNode body = mapper.readTree(is);
-            String ip = body.has("ip") ? body.get("ip").asText() : null;
+            
+            // 1. Mass assignment prevention
+            String rawIp = body.has("ip") ? body.get("ip").asText() : null;
 
-            if (ip == null || ip.isEmpty()) {
-                sendJsonResponse(exchange, 400, "{\"error\": \"IP is required\"}");
+            // 2. Input Sanitization
+            String ip = rawIp != null ? rawIp.trim() : null;
+            if (!isValidIp(ip)) {
+                sendJsonResponse(exchange, 400, "{\"error\": \"Valid IP format is required\"}");
+                return;
+            }
+
+            // 3. IDOR Protection
+            if (isSystemIp(ip)) {
+                sendJsonResponse(exchange, 403, "{\"error\": \"IDOR Protection: System IPs forbidden\"}");
                 return;
             }
 
